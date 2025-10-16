@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ผ้าลายเชียงแสนหงส์ดำ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fabric-detail.css') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-orange-50 text-gray-800">
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-center mb-6">🦢 ผ้าลายเชียงแสนหงส์ดำ</h1>
+
+    <div class="mb-6 text-center">
+      <img src="{{ url_for('static', filename='img/1.ChiangSaenBlackSwan.jpg') }}" alt="ผ้าลายเชียงแสนหงส์ดำ"
+           class="rounded-lg shadow-md mx-auto w-full max-w-md object-cover">
+    </div>
+
+    <div class="text-lg leading-relaxed space-y-4">
+      <p><strong>จังหวัด:</strong> เชียงราย</p>
+      <p><strong>ภาค:</strong> ภาคเหนือ</p>
+      <p><strong>ลักษณะ:</strong> ผ้าที่มีลวดลายหงส์ดำเป็นเอกลักษณ์ ถ่ายทอดศิลปะวัฒนธรรมเมืองเชียงแสน</p>
+      <p><strong>ประวัติความเป็นมา:</strong> ผ้าลายนี้ได้รับแรงบันดาลใจจาก “หงส์ดำ” สัตว์มงคลตามความเชื่อท้องถิ่น แสดงถึงความสง่างามและความศรัทธา เป็นเอกลักษณ์เฉพาะของชุมชนทอผ้าเชียงแสน</p>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="{{ url_for('database') }}" class="inline-block px-6 py-2 bg-thai-red text-white font-semibold rounded hover:bg-red-600 transition">⬅ กลับไปหน้าฐานข้อมูล</a>
+    </div>
+  </div>
+
+</body>
+</html>

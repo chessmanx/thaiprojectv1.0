@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Thai Fabric Pattern Analyzer - ฐานข้อมูลผ้าไทย</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            thai: {
+              gold: '#FFD700',
+              red: '#DC143C',
+              blue: '#1E3A8A',
+              green: '#059669'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/fabric-filter.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script> <!-- ✅ เพิ่มบรรทัดนี้ -->
+</head>
+
+
+<body class="bg-gradient-to-br from-orange-50 to-red-50 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-thai-gold to-thai-red rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-lg">🧵</span>
+          </div>
+          <span class="text-xl font-bold text-gray-800">AI Thai Fabric</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="{{ url_for('home') }}" class="nav-btn text-gray-700 hover:text-thai-red font-medium">หน้าหลัก</a>
+          <a href="{{ url_for('analyzer') }}" class="nav-btn text-gray-700 hover:text-thai-red font-medium">วิเคราะห์ลวดลาย</a>
+          <a href="{{ url_for('database') }}" class="nav-btn text-thai-red font-medium">ฐานข้อมูลผ้าไทย</a>
+          <a href="{{ url_for('technology') }}" class="nav-btn text-gray-700 hover:text-thai-red font-medium">เทคโนโลยี</a>
+          <a href="{{ url_for('about') }}" class="nav-btn text-gray-700 hover:text-thai-red font-medium">เกี่ยวกับเรา</a>
+        </div>
+        <div class="md:hidden">
+          <button onclick="toggleMobileMenu()" class="text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="{{ url_for('home') }}" class="block px-3 py-2 text-gray-700 hover:text-thai-red">หน้าหลัก</a>
+        <a href="{{ url_for('analyzer') }}" class="block px-3 py-2 text-gray-700 hover:text-thai-red">วิเคราะห์ลวดลาย</a>
+        <a href="{{ url_for('database') }}" class="block px-3 py-2 text-thai-red">ฐานข้อมูลผ้าไทย</a>
+        <a href="{{ url_for('technology') }}" class="block px-3 py-2 text-gray-700 hover:text-thai-red">เทคโนโลยี</a>
+        <a href="{{ url_for('about') }}" class="block px-3 py-2 text-gray-700 hover:text-thai-red">เกี่ยวกับเรา</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Database Section -->
+  <section id="database" class="section-content">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">📚 ฐานข้อมูลผ้าไทย</h1>
+        <p class="text-gray-600">คลังความรู้ผ้าไทยจากทุกภูมิภาค</p>
+      </div>
+
+      <!-- Filter -->
+      <div class="flex flex-col md:flex-row justify-center gap-4 mb-10">
+        <input id="searchInput" type="text" placeholder="ค้นชื่อผ้า..."
+          class="px-4 py-2 border rounded-md w-full md:w-1/3">
+        <select id="regionFilter" class="px-4 py-2 border rounded-md w-full md:w-1/4">
+          <option value="all">ทุกภูมิภาค</option>
+          <option value="ภาคเหนือ">ภาคเหนือ</option>
+          <option value="ภาคกลาง">ภาคกลาง</option>
+          <option value="ภาคอีสาน">ภาคอีสาน</option>
+          <option value="ภาคใต้">ภาคใต้</option>
+        </select>
+      </div>
+
+      <!-- Fabric Cards -->
+      <div id="fabricGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 1 ChiangSaenBlackSwan -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าลายเชียงแสนหงส์ดำ"
+          data-region="ภาคเหนือ">
+          <img src="{{ url_for('static', filename='img/1.ChiangSaenBlackSwan.jpg') }}" alt="ผ้าลายเชียงแสนหงส์ดำ" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าลายเชียงแสนหงส์ดำ (ChiangSaenBlackSwan)</h3>
+            <p class="text-thai-red">จังหวัดเชียงราย | ภาคเหนือ</p>
+            <p class="text-gray-600 text-sm">ผ้าลวดลายหงส์ดำ ถ่ายทอดศิลปะวัฒนธรรมเมืองเชียงแสน</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='1-chiangsaen') }}" class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม
+              →</a>
+          </div>
+        </div>
+
+        <!-- 2 NagaKum -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าลายนาคกุม"
+          data-region="ภาคเหนือ">
+          <img src="{{ url_for('static', filename='img/2.NagaKum.jpg') }}" alt="ผ้าลายนาคกุม" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าลายนาคกุม (NagaKum)</h3>
+            <p class="text-thai-red">จังหวัดเชียงราย | ภาคเหนือ</p>
+            <p class="text-gray-600 text-sm">ลวดลายพญานาค สื่อถึงความศรัทธาและสิริมงคล</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='2-nagakum') }}" class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม
+              →</a>
+          </div>
+        </div>
+
+        <!-- 3 TaMook -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าตาหมุก"
+          data-region="ภาคกลาง">
+          <img src="{{ url_for('static', filename='img/3.TaMook.jpg') }}" alt="ผ้าตาหมุก" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าตาหมุก (TaMook)</h3>
+            <p class="text-thai-red">จังหวัดระยอง | ภาคกลาง</p>
+            <p class="text-gray-600 text-sm">ทอด้วยเทคนิคเฉพาะ ประณีต สีสันสดใส</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='3-tamook') }}" class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม →</a>
+          </div>
+        </div>
+
+        <!-- 4 DokPeepMudmee -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้ามัดหมี่ลายดอกปีบ"
+          data-region="ภาคกลาง">
+          <img src="{{ url_for('static', filename='img/4.DokPeepMudmee.jpg') }}" alt="ผ้ามัดหมี่ลายดอกปีบ" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้ามัดหมี่ลายดอกปีบ (DokPeepMudmee)</h3>
+            <p class="text-thai-red">จังหวัดพิษณุโลก | ภาคกลาง</p>
+            <p class="text-gray-600 text-sm">ลายดอกปีบ งดงาม สะท้อนภูมิปัญญาท้องถิ่น</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='4-dokpeepmudmee') }}"
+              class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม →</a>
+          </div>
+        </div>
+
+        <!-- 5 NormalKhaabBua -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าลายกาบบัวธรรมดา"
+          data-region="ภาคอีสาน">
+          <img src="{{ url_for('static', filename='img/5.NormalKhaabBua.jpg') }}" alt="ผ้าลายกาบบัวธรรมดา" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าลายกาบบัวธรรมดา (NormalKhaabBua)</h3>
+            <p class="text-thai-red">จังหวัดอุบลราชธานี | ภาคอีสาน</p>
+            <p class="text-gray-600 text-sm">ถ่ายทอดเอกลักษณ์ของอุบลราชธานี</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='5-normalkhaabbua') }}"
+              class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม →</a>
+          </div>
+        </div>
+
+        <!-- 6 JokKhaabBua -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าลายกาบบัวจก"
+          data-region="ภาคอีสาน">
+          <img src="{{ url_for('static', filename='img/6.JokKhaabBua.jpg') }}" alt="ผ้าลายกาบบัวจก" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าลายกาบบัวจก (JokKhaabBua)</h3>
+            <p class="text-thai-red">จังหวัดอุบลราชธานี | ภาคอีสาน</p>
+            <p class="text-gray-600 text-sm">เทคนิคจก เพิ่มความวิจิตรและละเอียดอ่อน</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='6-jokkhaabbua') }}" class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม
+              →</a>
+          </div>
+        </div>
+
+        <!-- 7 DokPikul -->
+        <div class="fabric-card bg-white rounded-xl shadow-lg overflow-hidden" data-name="ผ้าลายดอกพิกุล"
+          data-region="ภาคใต้">
+          <img src="{{ url_for('static', filename='img/7.DokPikul.jpg') }}" alt="ผ้าลายดอกพิกุล" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold">ผ้าลายดอกพิกุล (DokPikul)</h3>
+            <p class="text-thai-red">จังหวัดนครศรีธรรมราช | ภาคใต้</p>
+            <p class="text-gray-600 text-sm">ลวดลายดอกพิกุล สื่อถึงสิริมงคล</p>
+            <a href="{{ url_for('fabric_detail', fabric_name='7-dokpikul') }}" class="text-thai-blue mt-2 inline-block hover:underline">อ่านเพิ่มเติม
+              →</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center justify-center space-x-3 mb-4">
+        <div class="w-8 h-8 bg-gradient-to-r from-thai-gold to-thai-red rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold">🧵</span>
+        </div>
+        <span class="text-xl font-bold">AI Thai Fabric</span>
+      </div>
+      <p class="text-gray-400">เทคโนโลยี AI เพื่ออนุรักษ์และส่งเสริมมรดกทางวัฒนธรรมไทย</p>
+    </div>
+  </footer>
+</body>
+
+</html>
