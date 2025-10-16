@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+env/
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+*.coverage
+coverage.xml
+htmlcov/
+.nox/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer artifacts
+*.log
+
+# Data / models
+*.h5
+*.hdf5
+*.npy
+history.pkl
+
+# Static/uploads
+uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
